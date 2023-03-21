@@ -3,8 +3,12 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 
+
 const app = express();
-const PORT = 8000;
+const PORT = 5000;
+
+// Models
+const User = require('./model/user');
 
 // mongoose connection
 
@@ -23,7 +27,13 @@ db.once('open', function() {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
- app.get('/', (req, res) => {
+
+
+
+
+
+
+app.get('/', (req, res) => {
     res.send('Success message!');
 });
 
@@ -33,13 +43,57 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post('/', (req, res) => {
     const { phoneNumber, text , sessionId } = req.body;
-    let response = '';
+    let response;
 
     if ( text === '') 
     {
-        response = `Enter your name`;
+        console.log('1');
+        response = `CON Enter your full name`;
     }
+    if ( text !== '' )
+    {
+        let array = text.split('*');
+        console.log(array);
+        response = `CON Enter your ID number`
+    }
+    else if ( array.length === 2 )
 
+    {
+        // ID NUMBER
+        if (parseInt(array[1]) > 0 )
+        {
+            response = `CON please confirm if you want to save your data\n1. Yes\n2. Cancel`
+        }
+
+        else 
+        {
+            response = 'END network error'
+        }
+    }
+    else if ( array.length === 3 )
+    {
+        if (parseInt(array[2]) === 1 )
+        {
+            let data = new User();
+            data.fullName = array[0];
+            data.id_number = array[1];
+            data.save(() => {
+                response = `END Thank you for registering`;
+            })
+        }
+        else if (parseInt(array[2]) === 2 )
+        {
+            response = `END Sorry, you have cancelled the registration.`
+        }
+        else 
+        {
+            response = `END Invalid input`
+        }
+    }
+    else 
+    {
+        response = `END Thank you for registering`;
+    }
 
 
     setTimeout(() => {
