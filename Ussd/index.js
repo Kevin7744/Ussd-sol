@@ -35,13 +35,15 @@ app.post('/', (req, res) => {
     const { phoneNumber, text , sessionId } = req.body;
     let response = '';
 
-    if (text === '') {
+    if ( text === '') 
+    {
         response = `Enter your name`;
     }
 
 
 
     setTimeout(() => {
+        console.log(text);
         res.send(response);
         res.end();
     }, 2000);
