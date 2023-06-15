@@ -11,6 +11,7 @@ function createAccount()
     // Perform the necessary operations to create an account for the user
     $accountNumber = generateAccountNumber(); // Generate a unique account number
     $balance = 0; // Initialize account balance
+    $phoneNumber = 0719321423; // Initial phone number of the user 
     
     // Save the account details to the database or any other storage mechanism
     saveAccountDetails($phoneNumber, $accountNumber, $balance);
@@ -22,10 +23,10 @@ function createAccount()
 // Function to convert cash to beecoins
 function convertToBeecoins()
 {
-    $cashAmount = 100; // Placeholder value, replace with actual cash amount provided by the user
+    $cashAmount = 0; // Placeholder value, replace with actual cash amount provided by the user
 
     // Check if the user has enough cash to convert
-    if ($cashAmount >= 50) {
+    if ($cashAmount > 0) {
         // Calculate the beecoins equivalent based on the conversion rate
         $conversionRate = 2; // Placeholder value, replace with actual conversion rate
         $beecoinsAmount = $cashAmount * $conversionRate;
@@ -80,7 +81,6 @@ function getAccountNumber($phoneNumber)
 {
     // Retrieve the user's account number from the database or any other storage mechanism
     // ...
-
     // Placeholder implementation that returns a hardcoded value for demonstration purposes
     return "ACC1001";
 }
@@ -92,7 +92,7 @@ function makePayment($accountNumber, $mainAddress, $beecoinsAmount)
     // ...
 
     // Placeholder implementation that always returns a successful transaction for demonstration purposes
-    return "success";
+    return "Success";
 }
 
 // Function to update the user's account balance
